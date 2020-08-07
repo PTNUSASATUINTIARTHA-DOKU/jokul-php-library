@@ -1,0 +1,17 @@
+{
+    "name": "doku/jokul-php-library",
+    "type": "library",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Devex Dev",
+            "email": "devexdev@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"DOKU\\": "src/DOKU/"}
+    },
+    "require": {}
+}
