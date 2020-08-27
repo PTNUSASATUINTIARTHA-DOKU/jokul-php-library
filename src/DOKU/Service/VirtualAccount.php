@@ -1,46 +1,22 @@
 <?php
 
-namespace DOKU;
+namespace DOKU\Service;
 
-class Client
+class VirtualAccount
 {
-
-    /**
-     * @var array
-     */
-    private $config = array();
-
-    const DEV = "development";
-    const PROD = "production";
-
-    /**
-     * Determine the environment which the program is run.
-     * Please fill the parameter with 'development' for Development environment or
-     * fill it with 'production' for Production environment.
-     * @var string|production|development
-     */
-    public function setEnvironment($environment = Client::DEV)
-    {
-        if ($environment == Client::DEV) {
-            $this->config['environment'] = Client::DEV;
-        } else if ($environment == Client::DEV) {
-            $this->config['environment'] = Client::PROD;
-        }
-    }
-
-    public function setClientID($clientID)
-    {
-        $this->config['client_id'] = $clientID;
-    }
-
-    public function setKey($key)
-    {
-        $this->config['shared_key'] = $key;
-    }
-
     public function generateMandiriVa($params)
     {
-        $words = $this->generateWords($params);
+        $formula =
+            $this->config['client_id'] .
+            $params['customerEmail'] .
+            trim($params['customerName']) .
+            $params['amount'] .
+            $params['invoiceNumber'] .
+            60 .
+            "false" .
+            $this->config['shared_key'];
+
+        $words = hash('sha256', $formula);
 
         $data = array(
             "client" => array(
@@ -63,7 +39,7 @@ class Client
             )
         );
 
-        if ($this->config['environment'] == Client::DEV) {
+        if ($this->config['environment'] == $this->DEV) {
             $url = 'http://dev.dokupay.com/mandiri-virtual-account/v1/payment-code';
         } else {
             $url = 'http: //app-sit.doku.com/mandiri-virtual-account/v1/payment-code';
@@ -83,20 +59,5 @@ class Client
         } else {
             print_r($responseJson);
         }
-    }
-
-    public function generateWords($params)
-    {
-        $formula =
-            $this->config['client_id'] .
-            $params['customerEmail'] .
-            trim($params['customerName']) .
-            $params['amount'] .
-            $params['invoiceNumber'] .
-            60 .
-            "false" .
-            $this->config['shared_key'];
-
-        return hash('sha256', $formula);
     }
 }
