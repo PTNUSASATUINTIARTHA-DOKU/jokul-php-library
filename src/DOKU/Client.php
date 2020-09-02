@@ -2,62 +2,58 @@
 
 namespace DOKU;
 
+use DOKU\Service\VirtualAccount;
+
 class Client
 {
 
-    public function getMandiriPaycode($params)
+    /**
+     * @var array
+     */
+    private $config = array();
+
+    const SANDBOX = "sandbox";
+    const PROD = "production";
+
+    function __construct()
+    {
+        $this->config['environment'] = Client::SANDBOX;
+    }
+
+    public function isProduction()
+    {
+        $this->config['environment'] = Client::PROD;
+    }
+
+    public function setClientID($clientID)
+    {
+        $this->config['client_id'] = $clientID;
+    }
+
+    public function setSharedKey($key)
+    {
+        $this->config['shared_key'] = $key;
+    }
+
+    public function generateMandiriVa($params)
+    {
+        $va = new VirtualAccount;
+        $va->generateMandiriVa($params);
+        
+    }
+
+    public function generateWords($params)
     {
         $formula =
-            $params->clientId .
-            $params->customerEmail .
-            trim($params->customerName) .
-            $params->amount .
-            $params->invoiceNumber .
+            $this->config['client_id'] .
+            $params['customerEmail'] .
+            trim($params['customerName']) .
+            $params['amount'] .
+            $params['invoiceNumber'] .
             60 .
             "false" .
-            $params->sharedKey;
+            $this->config['shared_key'];
 
-        $words = hash('sha256', $formula);
-
-        $data = array(
-            "client" => array(
-                "id" => $params->clientId
-            ),
-            "order" => array(
-                "invoice_number" => $params->invoiceNumber,
-                "amount" => $params->amount
-            ),
-            "virtual_account_info" => array(
-                "expired_time" => 60,
-                "reusable_status" => 'false',
-            ),
-            "customer" => array(
-                "name" => trim($params->customerName),
-                "email" => $params->customerEmail
-            ),
-            "security" => array(
-                "check_sum" => $words
-            )
-        );
-
-        if ($params->environment == 'development') {
-            $url = 'http://app-sit.doku.com/mandiri-virtual-account/v1/payment-code';
-        } else {
-            $url = 'http: //app-sit.doku.com/mandiri-virtual-account/v1/payment-code';
-        }
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $responseJson = curl_exec($ch);
-
-        curl_close($ch);
-
-        if (is_string($responseJson)) {
-            return json_decode($responseJson, true);
-        } else {
-            return $responseJson;
-        }
+        return hash('sha256', $formula);
     }
 }
