@@ -39,3 +39,10 @@ $DOKUClient->setSharedKey('[YOUR_SHARED_KEY]');
 // Call this function for production use
 $DOKUClient->isProduction();
 ```
+### 2.2 Get Notify From DOKU
+```php
+//instantiate class
+$dokuNotify = new DOKU\Service\Notification();
+//get Notify
+$response = $dokuNotify->getNotify();
+```
