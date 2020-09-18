@@ -35,9 +35,13 @@ class Client
         $this->config['shared_key'] = $key;
     }
 
+    public function getConfig(){
+        return $this->config;
+    }
+
     public function generateMandiriVa($params)
     {
-        $this->config = $this->client->getConfig();
+        $this->config = $this->getConfig();
         $words = $this->generateWords($params);
 
         $data = array(
