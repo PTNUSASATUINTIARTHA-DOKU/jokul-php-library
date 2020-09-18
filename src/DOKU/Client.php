@@ -66,9 +66,9 @@ class Client
         );
 
         if ($this->config['environment'] == Client::SANDBOX) {
-            $url = 'http: //api-sit.doku.com/mandiri-virtual-account/v1/payment-code';
+            $url = 'http://api-sit.doku.com/mandiri-virtual-account/v1/payment-code';
         } else {
-            $url = 'http: //api-sit.doku.com/mandiri-virtual-account/v1/payment-code';
+            $url = 'http://api-sit.doku.com/mandiri-virtual-account/v1/payment-code';
         }
 
         $ch = curl_init($url);
