@@ -39,3 +39,24 @@ $DOKUClient->setSharedKey('[YOUR_SHARED_KEY]');
 // Call this function for production use
 $DOKUClient->isProduction();
 ```
+### 2.2 Generate Paycode
+```
+//Call this function to generate mandiri paycode
+$DOKUClient->generateMandiriVa($params);
+
+example for params :
+$params = array(
+    'customerEmail' => 'jokul@doku.com',
+    'customerName' => 'Jo Cool',
+    'amount' => 105.00,
+    'invoiceNumber' => 'MINV2020112314168'
+);
+```
+
+### 2.3 Get Notify From DOKU
+```php
+//instantiate class
+$dokuNotify = new DOKU\Service\Notification();
+//get Notify
+$response = $dokuNotify->getNotify();
+```
