@@ -80,8 +80,7 @@ class Client
         curl_close($ch);
 
         if (is_string($responseJson)) {
-            // echo json_decode($responseJson, true);
-            print_r($responseJson);
+            return json_decode($responseJson, true);
         } else {
             print_r($responseJson);
         }
