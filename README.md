@@ -58,5 +58,5 @@ $params = array(
 //instantiate class
 $dokuNotify = new DOKU\Service\Notification();
 //get Notify
-$response = $dokuNotify->getNotify();
+$response = $dokuNotify->getNotification();
 ```
