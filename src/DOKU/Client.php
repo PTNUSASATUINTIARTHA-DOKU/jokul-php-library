@@ -12,6 +12,7 @@ class Client
      */
     private $config = array();
 
+    const SIT = "sit";
     const SANDBOX = "sandbox";
     const PROD = "production";
 
@@ -35,7 +36,8 @@ class Client
         $this->config['shared_key'] = $key;
     }
 
-    public function getConfig(){
+    public function getConfig()
+    {
         return $this->config;
     }
 
@@ -65,10 +67,12 @@ class Client
             )
         );
 
-        if ($this->config['environment'] == Client::SANDBOX) {
+        if ($this->config['environment'] == Client::SIT) {
             $url = 'http://api-sit.doku.com/mandiri-virtual-account/v1/payment-code';
+        } else if ($this->config['environment'] == Client::SANDBOX) {
+            $url = 'https://api-sandbox.doku.com/mandiri-virtual-account/v1/payment-code';
         } else {
-            $url = 'http://api-sit.doku.com/mandiri-virtual-account/v1/payment-code';
+            $url = 'https://api-sandbox.doku.com/mandiri-virtual-account/v1/payment-code';
         }
 
         $ch = curl_init($url);
@@ -84,7 +88,6 @@ class Client
         } else {
             print_r($responseJson);
         }
-        
     }
 
     public function generateWords($params)
