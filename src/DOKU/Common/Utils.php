@@ -4,9 +4,9 @@ namespace DOKU\Common;
 
 class Utils
 {
-    public static function generateSignature($headers, $secret)
+    public static function generateSignature($headers, $body, $secret)
     {
-        $digest = base64_encode(hash('sha256', file_get_contents('php://input'), true));
+        $digest = base64_encode(hash('sha256', $body, true));
         $rawSignature = "Client-Id:" . $headers['Client-Id'] . "\n"
             . "Request-Id:" . $headers['Request-Id'] . "\n"
             . "Request-Timestamp:" . $headers['Request-Timestamp'] . "\n"

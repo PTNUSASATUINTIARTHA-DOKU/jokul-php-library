@@ -2,31 +2,17 @@
 
 namespace DOKU\Service;
 
-use DOKU\Client;
-use DOKU\Common\Utils;
-
 class Notification
 {
     private $response;
-    private $client;
-    private $headers;
 
-    public function __construct(Client $client)
+    public function __construct()
     {
-        $this->client = $client;
-        $this->headers = getallheaders();
     }
 
-    public function getNotification()
+    public function getNotification($response)
     {
-        $config = $this->client->getConfig();
-        $signature = Utils::generateSignature($this->headers, $config['shared_key']);
-        if ($signature == $this->headers['Signature']) {
-            $raw_notification = json_decode(file_get_contents('php://input'), true);
-            $this->response = $raw_notification;
-        }
-        $this->returnResponse($this->response);
-        return $this->response;
+        return $this->returnResponse($response);
     }
 
     function returnResponse($json_data_input)
@@ -44,6 +30,6 @@ class Notification
             )
         );
 
-        echo json_encode($json_data_output);
+        return $json_data_output;
     }
 }
