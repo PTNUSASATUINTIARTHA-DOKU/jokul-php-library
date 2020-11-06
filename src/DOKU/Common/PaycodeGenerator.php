@@ -57,7 +57,7 @@ class PaycodeGenerator
         $header['Request-Timestamp'] = $dateTimeFinal;
         $header['Request-Target'] = $targetPath;
         $signature = "";
-        if (isset($params['sigver'])) {
+        if (!isset($params['sigver'])) {
             $signature = Utils::generateSignature($header, json_encode($data), $config['shared_key']);
         } else {
             $signature = Utils::generateSignatureV1_3($header, json_encode($data), $config['shared_key']);
