@@ -4,8 +4,8 @@ namespace DOKU\Common;
 
 class Config {
 
-  const SANDBOX_BASE_URL    = 'http://api-sit.doku.com';
-  const PRODUCTION_BASE_URL = 'https://api-sandbox.doku.com';
+  const SANDBOX_BASE_URL    = 'https://api-sandbox.doku.com';
+  const PRODUCTION_BASE_URL = 'https://api.doku.com';
 
   /**
    * @return string Doku API URL, depends on $state

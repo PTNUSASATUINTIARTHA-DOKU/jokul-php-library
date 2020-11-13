@@ -26,10 +26,11 @@ composer require doku/jokul-php-library
 
 add this require line to your `composer.json` file:
 
+example
 ```json
 {
     "require": {
-        "doku/jokul-php-library-php": "1.*"
+        "doku/jokul-php-library-php": "2.0.2"
     }
 }
 ```
