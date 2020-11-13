@@ -70,7 +70,7 @@ If you want to hit to Sandbox, change to `$DOKUClient->isProduction(false);`.
 
 First prepare your payment request data:
 
-```
+```php
 // Setup VA payment request data
 $params = array(
     'customerEmail' => $arr["email"],
@@ -89,7 +89,7 @@ $params = array(
 
 After preparing the payment request above, call this function to generate Mandiri VA:
 
-```
+```php
 // Call this function to generate Mandiri VA
 $DOKUClient->generateMandiriVa($params);
 ```
@@ -98,7 +98,7 @@ $DOKUClient->generateMandiriVa($params);
 
 After preparing the payment request above, call this function to generate DOKU VA:
 
-```
+```php
 // Call this function to generate DOKU VA
 $DOKUClient->generateDOKUVa($params);
 ```
