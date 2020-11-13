@@ -62,9 +62,9 @@ $DOKUClient->setClientID('[YOUR_CLIENT_ID]');
 // Set your Shared Key
 $DOKUClient->setSharedKey('[YOUR_SHARED_KEY]');
 // Call this function for production use
-$DOKUClient->isProduction();
+$DOKUClient->isProduction(true);
 ```
-If you want to hit to Sandbox, remove the `$DOKUClient->isProduction();`.
+If you want to hit to Sandbox, change to `$DOKUClient->isProduction(false);`.
 
 ### Virtual Account
 
