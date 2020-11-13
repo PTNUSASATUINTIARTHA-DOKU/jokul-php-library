@@ -39,7 +39,7 @@ example
 ```json
 {
     "require": {
-        "doku/jokul-php-library-php": "2.0.2"
+        "doku/jokul-php-library": "2.0.0"
     }
 }
 ```
@@ -118,7 +118,7 @@ We will send the HTTP Notification after the payment made from your customers. T
 Here is the sample of the notification endpoint that you need to setup.
 
 ```php
-// https://domain.com/notify
+// https://your-domain.com/notify
 
 // Mapping the notification received from Jokul
 $headers = getallheaders();
