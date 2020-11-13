@@ -1,27 +1,29 @@
 # Jokul PHP Library
-Official PHP Library for Jokul. Visit https://jokul.doku.com for more information about the product and https://jokul.doku.com/docs for the technical documentation.
+
+Official PHP Library for Jokul. Visit [https://jokul.doku.com](https://jokul.doku.com) for more information about the product and [https://jokul.doku.com/docs](https://jokul.doku.com/docs) for the technical documentation.
 
 ## Table of Contents
 
+- [Payment Channels Supported](#payment-channels-supported)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Setup Configuration](#setup-configuration)
   - [Virtual Account](#virtual-account)
   - [Handling HTTP Notification](#handling-http-notification)
-- [Example](#example)
+- [Sample Project](#sample-project)
 - [Help and Support](#help-and-support)
 
 ## Payment Channels Supported
 
 Virtual Account
 
-- DOKU VA
 - Mandiri VA
+- DOKU VA
 
 ## Requirements
 
-- PHP 7.2
+- PHP 7.2 or above
 
 ## Installation
 
@@ -50,7 +52,7 @@ and run `composer install` on your terminal.
 
 ### Setup Configuration
 
-Get your Client ID and Shared Key from [Jokul Back Office](https://jokul.doku.com/bo/login).
+Get your Client ID and Shared Key from Jokul Back Office. [Sandbox Jokul Back Office (for testing purpose)](https://sandbox.doku.com/bo/login) / [Production Jokul Back Office (for real payments)](https://jokul.doku.com/bo/login)
 
 Setup your configuration:
 
@@ -85,6 +87,8 @@ $params = array(
 );
 ```
 
+For further details of each parameter, please refer to our [Jokul Docs](https://jokul.doku.com/docs/docs/jokul-direct/virtual-account/virtual-account-overview).
+
 #### Mandiri VA
 
 After preparing the payment request above, call this function to generate Mandiri VA:
@@ -111,11 +115,11 @@ For async payment from these channels:
 
 We will send the HTTP Notification after the payment made from your customers. Therefore, you will need to handle the notification to update the transaction status on your end. Here is the steps:
 
-1. Setup notification URL on your server that Jokul will send the notification
-1. Setup the notification URL to the Payment Configuration on [Jokul Back Office](https://sandbox.doku.com/bo/login)
+1. Create notification URL (endpoint) on your server to receieve HTTP POST notification from Jokul. The notification will be sent to you whenever the transaction status is updated on Jokul side. The sample code available in [Jokul Java Example](https://github.com/PTNUSASATUINTIARTHA-DOKU/jokul-java-example).
+1. Setup the notification URL that you made to the Payment Configuration on Jokul Back Office. [Sandbox Jokul Back Office (for testing purpose)](https://sandbox.doku.com/bo/login) / [Production Jokul Back Office (for real payments)](https://jokul.doku.com/bo/login)
 1. Test the payment with our [Payment Simulator](https://sandbox.doku.com/integration/simulator) (for testing purpose)
 
-Here is the sample of the notification endpoint that you need to setup.
+Here is the sample of the notification endpoint that you need to setup:
 
 ```php
 // https://your-domain.com/notify
@@ -144,3 +148,15 @@ if ($signature == $headers['Signature']) {
     // TODO Do Not update transaction status on your end yet
 }
 ```
+
+For further reference, please refer to our [Jokul Docs](https://jokul.doku.com/docs).
+
+## Sample Project
+
+Please refer to this repo for the example project: [Jokul PHP Example](https://github.com/PTNUSASATUINTIARTHA-DOKU/jokul-php-example).
+
+## Help and Support
+
+Got any issues? Found a bug? Have a feature requests? You can [open new issue](https://github.com/PTNUSASATUINTIARTHA-DOKU/jokul-php-library/issues/new).
+
+For further information, you can contact us on [care@doku.com](mailto:care@doku.com).
