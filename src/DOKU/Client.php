@@ -8,6 +8,10 @@ use DOKU\Service\MandiriVa;
 
 use DOKU\Service\DokuVa;
 
+use DOKU\Service\BcaVa;
+
+use DOKU\Service\BsiVa;
+
 class Client
 {
     /**
@@ -45,5 +49,17 @@ class Client
     {
         $this->config = $this->getConfig();
         return DokuVa::generated($this->config, $params);
+    }
+
+    public function generateBsiVa($params)
+    {
+        $this->config = $this->getConfig();
+        return BsiVa::generated($this->config, $params);
+    }
+
+    public function generateBcaVa($params)
+    {
+        $this->config = $this->getConfig();
+        return BcaVa::generated($this->config, $params);
     }
 }

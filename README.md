@@ -18,7 +18,9 @@ Official PHP Library for Jokul. Visit [https://jokul.doku.com](https://jokul.dok
 
 Virtual Account
 
-- Mandiri VA
+- BCA VA
+- Bank Mandiri VA
+- Bank Syariah Indonesia VA
 - DOKU VA
 
 ## Requirements
@@ -41,7 +43,7 @@ example
 ```json
 {
     "require": {
-        "doku/jokul-php-library": "2.0.0"
+        "doku/jokul-php-library": "2.1.0"
     }
 }
 ```
@@ -89,13 +91,31 @@ $params = array(
 
 For further details of each parameter, please refer to our [Jokul Docs](https://jokul.doku.com/docs/docs/jokul-direct/virtual-account/virtual-account-overview).
 
-#### Mandiri VA
+#### BCA VA
 
-After preparing the payment request above, call this function to generate Mandiri VA:
+After preparing the payment request above, call this function to generate BCA VA:
 
 ```php
-// Call this function to generate Mandiri VA
+// Call this function to generate BCA VA
+$DOKUClient->generateBcaVa($params);
+```
+
+#### Bank Mandiri VA
+
+After preparing the payment request above, call this function to generate Bank Mandiri VA:
+
+```php
+// Call this function to generate Bank Mandiri VA
 $DOKUClient->generateMandiriVa($params);
+```
+
+#### Bank Syariah Indonesia VA
+
+After preparing the payment request above, call this function to generate Bank Syariah Indonesia VA:
+
+```php
+// Call this function to generate Bank Syariah Indonesia VA
+$DOKUClient->generateBsiVa($params);
 ```
 
 #### DOKU VA
@@ -104,7 +124,7 @@ After preparing the payment request above, call this function to generate DOKU V
 
 ```php
 // Call this function to generate DOKU VA
-$DOKUClient->generateDOKUVa($params);
+$DOKUClient->generateDokuVa($params);
 ```
 
 ### Handling HTTP Notification
@@ -122,29 +142,21 @@ We will send the HTTP Notification after the payment made from your customers. T
 Here is the sample of the notification endpoint that you need to setup:
 
 ```php
-// https://your-domain.com/notify
-
 // Mapping the notification received from Jokul
-$headers = getallheaders();
-$raw_notification = json_decode(file_get_contents('php://input'), true);
-
-// Handle the Notification
-$dokuNotify = new DOKU\Service\Notification();
+$notifyHeaders = getallheaders();
+$notifyBody = json_decode(file_get_contents('php://input'), true); // You can use to parse the value from the notification body
+$targetPath = '/payments/notifications'; // Put this value with your payment notification path
+$secretKey = 'SK-xxxxxxx'; // Put this value with your Secret Key
 
 // Prepare Signature to verify the notification authenticity
-$signature = \DOKU\Common\Utils::generateSignature($headers, file_get_contents('php://input'), 'YOUR_SHARED_KEY');
+$signature = \DOKU\Common\Utils::generateSignature($notifyHeaders, $targetPath, file_get_contents('php://input'), $secretKey);
 
 // Verify the notification authenticity
-if ($signature == $headers['Signature']) {
-    $response = json_encode($dokuNotify->getNotification($raw_notification));
-    echo $response;
+if ($signature == $notifyHeaders['Signature']) {
+    http_response_code(200); // Return 200 Success to Jokul if the Signature is match
     // TODO update transaction status on your end to 'SUCCESS'
 } else {
-    // Return 400 to Jokul if the Signature is not match
-    http_response_code(400);
-    $response = json_encode($dokuNotify->getNotification($raw_notification));
-    echo $response;
-    
+    http_response_code(401); // Return 401 Unauthorized to Jokul if the Signature is not match
     // TODO Do Not update transaction status on your end yet
 }
 ```

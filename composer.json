@@ -1,12 +1,12 @@
 {
     "name": "doku/jokul-php-library",
     "type": "library",
-    "description": "",
+    "description": "Jokul PHP Library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Devex Dev",
-            "email": "devexdev@gmail.com"
+            "name": "DOKU Developer Experience Team",
+            "email": "technology@doku.com"
         }
     ],
     "minimum-stability": "dev",

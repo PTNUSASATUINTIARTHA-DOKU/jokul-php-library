@@ -30,7 +30,7 @@ class PaycodeGenerator
             "additional_info" => array(
                 "integration" => array(
                     "name" => "php-library",
-                    "version" => "2.0.0"
+                    "version" => "2.1.0"
                 )
             )
         );
@@ -42,7 +42,7 @@ class PaycodeGenerator
             $data['order']["max_amount"] = $params['min_amount'];
         }
 
-        $regId = rand(1, 100000);
+        $requestId = rand(1, 100000);
         $dateTime = gmdate("Y-m-d H:i:s");
         $dateTime = date(DATE_ISO8601, strtotime($dateTime));
         $dateTimeFinal = substr($dateTime, 0, 19) . "Z";
@@ -53,15 +53,9 @@ class PaycodeGenerator
         $url = $getUrl . $targetPath;
 
         $header['Client-Id'] = $config['client_id'];
-        $header['Request-Id'] = $regId;
+        $header['Request-Id'] = $requestId;
         $header['Request-Timestamp'] = $dateTimeFinal;
-        $header['Request-Target'] = $targetPath;
-        $signature = "";
-        if (!isset($params['sigver'])) {
-            $signature = Utils::generateSignature($header, json_encode($data), $config['shared_key']);
-        } else {
-            $signature = Utils::generateSignatureV1_3($header, json_encode($data), $config['shared_key']);
-        }
+        $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
@@ -71,7 +65,7 @@ class PaycodeGenerator
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Signature:' . $signature,
-            'Request-Id:' . $regId,
+            'Request-Id:' . $requestId,
             'Client-Id:' . $config['client_id'],
             'Request-Timestamp:' . $dateTimeFinal,
             'Request-Target:' . $targetPath,
