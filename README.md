@@ -93,7 +93,7 @@ For further details of each parameter, please refer to our [Jokul Docs](https://
 
 #### BCA VA
 
-After preparing the payment request above, call this function to generate Mandiri VA:
+After preparing the payment request above, call this function to generate BCA VA:
 
 ```php
 // Call this function to generate BCA VA
