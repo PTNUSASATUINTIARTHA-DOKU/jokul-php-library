@@ -30,7 +30,7 @@ class PaycodeGenerator
             "additional_info" => array(
                 "integration" => array(
                     "name" => "php-library",
-                    "version" => "2.1.1"
+                    "version" => "2.1.0"
                 )
             )
         );
