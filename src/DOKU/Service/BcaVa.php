@@ -4,12 +4,12 @@ namespace DOKU\Service;
 
 use DOKU\Common\PaycodeGenerator;
 
-class MandiriVa
+class BcaVa
 {
 
     public static function generated($config, $params)
     {
-        $params['targetPath'] = '/mandiri-virtual-account/v2/payment-code';
+        $params['targetPath'] = '/bca-virtual-account/v2/payment-code';
         return PaycodeGenerator::post($config, $params);
     }
 }
