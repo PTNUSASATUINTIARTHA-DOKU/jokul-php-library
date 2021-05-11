@@ -64,12 +64,10 @@ class PaycodeGenerator
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
-            'Signature:' . $signature,
-            'Request-Id:' . $requestId,
             'Client-Id:' . $config['client_id'],
+            'Request-Id:' . $requestId,
             'Request-Timestamp:' . $dateTimeFinal,
-            'Request-Target:' . $targetPath,
-
+            'Signature:' . $signature,
         ));
 
         $responseJson = curl_exec($ch);
