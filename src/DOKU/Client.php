@@ -4,14 +4,6 @@ namespace DOKU;
 
 use DOKU\Service\VirtualAccount;
 
-use DOKU\Service\MandiriVa;
-
-use DOKU\Service\DokuVa;
-
-use DOKU\Service\BcaVa;
-
-use DOKU\Service\BsiVa;
-
 class Client
 {
     /**
@@ -34,32 +26,19 @@ class Client
         $this->config['shared_key'] = $key;
     }
 
+    public function setChannelVA($channel)
+    {
+        $this->config['channel_uri'] = $channel;
+    }
+
     public function getConfig()
     {
         return $this->config;
     }
 
-    public function generateMandiriVa($params)
+    public function generateVA($params)
     {
         $this->config = $this->getConfig();
-        return MandiriVa::generated($this->config, $params);
-    }
-
-    public function generateDokuVa($params)
-    {
-        $this->config = $this->getConfig();
-        return DokuVa::generated($this->config, $params);
-    }
-
-    public function generateBsiVa($params)
-    {
-        $this->config = $this->getConfig();
-        return BsiVa::generated($this->config, $params);
-    }
-
-    public function generateBcaVa($params)
-    {
-        $this->config = $this->getConfig();
-        return BcaVa::generated($this->config, $params);
+        return VirtualAccount::generated($this->config, $params);
     }
 }
