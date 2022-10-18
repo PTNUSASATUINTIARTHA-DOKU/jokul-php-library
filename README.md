@@ -1,6 +1,7 @@
 # Jokul PHP Library
 
-Official PHP Library for Jokul. Visit [https://jokul.doku.com](https://jokul.doku.com) for more information about the product and [https://jokul.doku.com/docs](https://jokul.doku.com/docs) for the technical documentation.
+This is fork of [Jokul PHP Library](https://github.com/PTNUSASATUINTIARTHA-DOKU/jokul-php-library)
+
 
 ## Table of Contents
 
@@ -16,12 +17,17 @@ Official PHP Library for Jokul. Visit [https://jokul.doku.com](https://jokul.dok
 
 ## Payment Channels Supported
 
-Virtual Account
+Virtual Account => `Channel Name`
 
-- BCA VA
-- Bank Mandiri VA
-- Bank Syariah Indonesia VA
-- DOKU VA
+- BCA = `bca-virtual-account`
+- Mandiri = `mandiri-virtual-account`
+- Bank Syariah Indonesia (BSI)= `bsm-virtual-account`
+- DOKU = `doku-virtual-account`
+- BRI = `bri-virtual-account`
+- CIMB = `cimb-virtual-account`
+- Permata = `permata-virtual-account`
+- BNI = `bni-virtual-account`
+- Danamon = `danamon-virtual-account`
 
 ## Requirements
 
@@ -91,41 +97,18 @@ $params = array(
 
 For further details of each parameter, please refer to our [Jokul Docs](https://jokul.doku.com/docs/docs/jokul-direct/virtual-account/virtual-account-overview).
 
-#### BCA VA
+#### Virtual Account
 
 After preparing the payment request above, call this function to generate BCA VA:
 
 ```php
-// Call this function to generate BCA VA
-$DOKUClient->generateBcaVa($params);
+// Set channel Virtual Account
+$DOKUClient->setChannelVA("bca-virtual-account");
+
+// Call this function to generate Virtual Account
+$DOKUClient->generateVA($params);
 ```
 
-#### Bank Mandiri VA
-
-After preparing the payment request above, call this function to generate Bank Mandiri VA:
-
-```php
-// Call this function to generate Bank Mandiri VA
-$DOKUClient->generateMandiriVa($params);
-```
-
-#### Bank Syariah Indonesia VA
-
-After preparing the payment request above, call this function to generate Bank Syariah Indonesia VA:
-
-```php
-// Call this function to generate Bank Syariah Indonesia VA
-$DOKUClient->generateBsiVa($params);
-```
-
-#### DOKU VA
-
-After preparing the payment request above, call this function to generate DOKU VA:
-
-```php
-// Call this function to generate DOKU VA
-$DOKUClient->generateDokuVa($params);
-```
 
 ### Handling HTTP Notification
 
@@ -163,9 +146,6 @@ if ($signature == $notifyHeaders['Signature']) {
 
 For further reference, please refer to our [Jokul Docs](https://jokul.doku.com/docs).
 
-## Sample Project
-
-Please refer to this repo for the example project: [Jokul PHP Example](https://github.com/PTNUSASATUINTIARTHA-DOKU/jokul-php-example).
 
 ## Help and Support
 
