@@ -6,26 +6,19 @@ use DOKU\Common\Config;
 
 use DOKU\Common\Utils;
 
-class PaycodeGenerator
+class PaycodeGeneratorEmoney
 {
 
     public static function post($config, $params)
     {
         $header = array();
-        $data = array(
+        if ($params['channel'] === 'shopeepay') {
+        $data =  array(
             "order" => array(
                 "invoice_number" => $params['invoiceNumber'],
-            ),
-            "virtual_account_info" => array(
-                "expired_time" => $params['expiryTime'],
-                "reusable_status" => $params['reusableStatus'],
-                "info1" => $params['info1'],
-                "info2" => $params['info2'],
-                "info3" => $params['info3'],
-            ),
-            "customer" => array(
-                "name" => trim($params['customerName']),
-                "email" => $params['customerEmail']
+                "amount" => $params['amount'],
+                "callback_url" => $params['callbackUrl'],
+                "expired_time" => $params['expiredTime']
             ),
             "additional_info" => array(
                 "integration" => array(
@@ -34,7 +27,47 @@ class PaycodeGenerator
                 )
             )
         );
-
+    } else if ($params['channel'] === 'ovo') {    
+        $data =  array(
+            "client"=> array(
+                "id"=> $params['clientId']
+            ),
+            "order"=> array(
+                "invoice_number"=> $params['invoiceNumber'],
+                "amount"=> $params['amount']
+            ),
+            "ovo_info"=> array(
+                "ovo_id"=> $params['ovoId']
+            ),
+            "security" => array(
+                "check_sum"=>$params['checkSum']
+            ),
+            "additional_info" => array(
+                "integration" => array(
+                    "name" => "php-library",
+                    "version" => "2.1.0"
+                )
+            )
+        ) ;
+    } else if ($params['channel'] === 'dw') {  
+        $data =  array(
+            "order" => array (
+                "invoice_number" => $params['invoiceNumber'],
+                "amount" => $params['amount'],
+                "success_url" => $params['callbackUrl'],
+                "failed_url" => $params['urlFail'],
+                "notify_url" => $params['notifyUrl'],
+                "auto_redirect" => false
+            ),
+            "additional_info" => array(
+                "integration" => array(
+                    "name" => "php-library",
+                    "version" => "2.1.0"
+                )
+            )
+        );
+    }
+        
         if (isset($params['amount'])) {
             $data['order']["amount"] = $params['amount'];
         } else {

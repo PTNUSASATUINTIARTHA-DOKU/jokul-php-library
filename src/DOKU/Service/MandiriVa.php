@@ -2,7 +2,7 @@
 
 namespace DOKU\Service;
 
-use DOKU\Common\PaycodeGenerator;
+use DOKU\Common\PaycodeGeneratorVa;
 
 class MandiriVa
 {
@@ -10,6 +10,6 @@ class MandiriVa
     public static function generated($config, $params)
     {
         $params['targetPath'] = '/mandiri-virtual-account/v2/payment-code';
-        return PaycodeGenerator::post($config, $params);
+        return PaycodeGeneratorVa::post($config, $params);
     }
 }

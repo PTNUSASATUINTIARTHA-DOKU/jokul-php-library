@@ -2,7 +2,7 @@
 
 namespace DOKU\Service;
 
-use DOKU\Common\PaycodeGenerator;
+use DOKU\Common\PaycodeGeneratorVa;
 
 class DokuVa
 {
@@ -10,6 +10,6 @@ class DokuVa
     public static function generated($config, $params)
     {
         $params['targetPath'] = "/doku-virtual-account/v2/payment-code";
-        return PaycodeGenerator::post($config, $params);
+        return PaycodeGeneratorVa::post($config, $params);
     }
 }
