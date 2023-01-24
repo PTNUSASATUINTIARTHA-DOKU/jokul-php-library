@@ -2,7 +2,7 @@
 
 namespace DOKU\Service;
 
-use DOKU\Common\PaycodeGenerator;
+use DOKU\Common\PaycodeGeneratorVa;
 
 class BsiVa
 {
@@ -10,6 +10,6 @@ class BsiVa
     public static function generated($config, $params)
     {
         $params['targetPath'] = '/bsm-virtual-account/v2/payment-code';
-        return PaycodeGenerator::post($config, $params);
+        return PaycodeGeneratorVa::post($config, $params);
     }
 }

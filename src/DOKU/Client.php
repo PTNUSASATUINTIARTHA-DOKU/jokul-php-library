@@ -12,6 +12,16 @@ use DOKU\Service\BcaVa;
 
 use DOKU\Service\BsiVa;
 
+use DOKU\Service\BriVa;
+
+use DOKU\Service\CreditCard;
+
+use DOKU\Service\DokuWallet;
+
+use DOKU\Service\Ovo;
+
+use DOKU\Service\ShopeePay;
+
 class Client
 {
     /**
@@ -61,5 +71,35 @@ class Client
     {
         $this->config = $this->getConfig();
         return BcaVa::generated($this->config, $params);
+    }
+
+    public function generateBriVa($params)
+    {
+        $this->config = $this->getConfig();
+        return BriVa::generated($this->config, $params);
+    }
+
+    public function generateCreditCard($params)
+    {
+        $this->config = $this->getConfig();
+        return CreditCard::generated($this->config, $params);
+    }
+
+    public function generateDokuWallet($params)
+    {
+        $this->config = $this->getConfig();
+        return DokuWallet::generated($this->config, $params);
+    }
+
+    public function generateShopeePay($params)
+    {
+        $this->config = $this->getConfig();
+        return ShopeePay::generated($this->config, $params);
+    }
+
+    public function generateOvo($params)
+    {
+        $this->config = $this->getConfig();
+        return Ovo::generated($this->config, $params);
     }
 }
