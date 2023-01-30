@@ -42,6 +42,10 @@ class PaycodeGeneratorVa
             $data['order']["max_amount"] = $params['min_amount'];
         }
 
+        if (isset($params['additional_info'])) {
+            array_push($data['additional_info'], $params['additional_info']);
+        }
+
         $requestId = rand(1, 100000);
         $dateTime = gmdate("Y-m-d H:i:s");
         $dateTime = date(DATE_ISO8601, strtotime($dateTime));
