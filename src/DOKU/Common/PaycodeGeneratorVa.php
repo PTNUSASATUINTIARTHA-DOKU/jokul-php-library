@@ -63,9 +63,6 @@ class PaycodeGeneratorVa
         $header['Request-Timestamp'] = $dateTimeFinal;
         $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
 
-        print_r(json_encode($data));
-        die();
-
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
