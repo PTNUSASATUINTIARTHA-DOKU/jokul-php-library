@@ -43,7 +43,9 @@ class PaycodeGeneratorVa
         }
 
         if (isset($params['additional_info'])) {
-            array_push($data['additional_info'], $params['additional_info']);
+            foreach ($params['additional_info'] as $key => $value) {
+                $data['additional_info'][$key] = $value;
+            }
         }
 
         $requestId = rand(1, 100000);
@@ -60,6 +62,9 @@ class PaycodeGeneratorVa
         $header['Request-Id'] = $requestId;
         $header['Request-Timestamp'] = $dateTimeFinal;
         $signature = Utils::generateSignature($header, $targetPath, json_encode($data), $config['shared_key']);
+
+        print_r(json_encode($data));
+        die();
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
