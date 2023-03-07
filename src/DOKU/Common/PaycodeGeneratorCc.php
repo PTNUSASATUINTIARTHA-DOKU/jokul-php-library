@@ -52,6 +52,12 @@ class PaycodeGeneratorCc
             $data['order']["max_amount"] = $params['min_amount'];
         }
 
+        if (isset($params['additional_info'])) {
+            foreach ($params['additional_info'] as $key => $value) {
+                $data['additional_info'][$key] = $value;
+            }
+        }
+
         $requestId = rand(1, 100000);
         $dateTime = gmdate("Y-m-d H:i:s");
         $dateTime = date(DATE_ISO8601, strtotime($dateTime));
